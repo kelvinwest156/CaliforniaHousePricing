@@ -1,5 +1,5 @@
-
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 import numpy as np
 from pydantic import BaseModel, model_validator
@@ -8,6 +8,13 @@ model = joblib.load("forest_model.joblib")
 
 app = FastAPI(title="California House Price Prediction API")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 class HouseData(BaseModel):
     longitude: float
@@ -58,6 +65,7 @@ def predict_price(data:HouseData):
         ]]
     )
     prediction = model.predict(features)
-    return {"predicted_price": float(prediction[0])}
+    final_price = max(0.0, float(prediction[0]))
+    return {"predicted_price": final_price}
 
 

@@ -2,6 +2,18 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  // Replace with the URL from your Render Backend "Settings" page
+const API_URL = " https://statepredict.onrender.com";
+
+const handlePredict = async (data) => {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  const result = await response.json();
+  setPrice(result.prediction);
+};
   const [formData, setFormData] = useState({
     longitude: -119.5,
     latitude: 37.0,

@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   // Replace with the URL from your Render Backend "Settings" page
-const API_URL = " https://statepredict.onrender.com";
+const API_URL = " https://statepredict.onrender.com/predict";
 
   const [formData, setFormData] = useState({
     longitude: -119.5,

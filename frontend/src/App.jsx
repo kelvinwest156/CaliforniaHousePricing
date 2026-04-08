@@ -5,15 +5,6 @@ function App() {
   // Replace with the URL from your Render Backend "Settings" page
 const API_URL = " https://statepredict.onrender.com";
 
-const handlePredict = async (data) => {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  const result = await response.json();
-  setPrice(result.prediction);
-};
   const [formData, setFormData] = useState({
     longitude: -119.5,
     latitude: 37.0,
@@ -72,7 +63,7 @@ const handlePredict = async (data) => {
         ocean_proximity_near_ocean: formData.ocean_proximity === 'NEAR OCEAN' ? 1.0 : 0.0,
       };
 
-      const response = await fetch('http://localhost:8000/predict', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
